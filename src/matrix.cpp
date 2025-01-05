@@ -1,3 +1,4 @@
+#include <cmath>
 #include <iostream>
 #include <vector>
 
@@ -230,6 +231,60 @@ Matrix Matrix::transpose() {
             result.data[i][j] = data[j][i];
         }
     }
+    return result;
+}
+
+Matrix translation(float x, float y, float z) {
+    Matrix result(4);
+    result.data[0][3] = x;
+    result.data[1][3] = y;
+    result.data[2][3] = z;
+    return result;
+}
+
+Matrix scaling(float x, float y, float z) {
+    Matrix result(4);
+    result.data[0][0] = x;
+    result.data[1][1] = y;
+    result.data[2][2] = z;
+    return result;
+}
+
+Matrix rotateX(float theta) {
+    Matrix result(4);
+    result.data[1][1] = result.data[2][2] = cos(theta);
+    result.data[2][1] = sin(theta);
+    result.data[1][2] = -result.data[2][1];
+    return result;
+}
+
+Matrix rotateY(float theta) {
+    Matrix result(4);
+    result.data[0][0] = result.data[2][2] = cos(theta);
+    result.data[2][0] = -sin(theta);
+    result.data[0][2] = -result.data[2][0];
+    return result;
+}
+
+Matrix rotateZ(float theta) {
+    Matrix result(4);
+    result.data[0][0] = result.data[1][1] = cos(theta);
+    result.data[1][0] = sin(theta);
+    result.data[0][1] = -result.data[1][0];
+    return result;
+}
+
+Matrix shearing(float xy, float xz, float yx, float yz, float zx, float zy) {
+    Matrix result(4);
+    result.data[0][1] = xy;
+    result.data[0][2] = xz;
+
+    result.data[1][0] = yx;
+    result.data[1][2] = yz;
+
+    result.data[2][0] = zx;
+    result.data[2][1] = zy;
+
     return result;
 }
 

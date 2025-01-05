@@ -32,12 +32,11 @@ void Canvas::writePixel(uint64_t i, uint64_t j, const Color& c) {
     pixelArray[i][j] = c;
 }
 
-void Canvas::toPPM(std::string path) {
+bool Canvas::toPPM(std::string path) {
     std::ofstream output;
     int ri, gi, bi;
     std::string r, g, b;
     std::string currentString = "";
-
     output.open(path);
     if (output.is_open()) {
         output << "P3\n";
@@ -89,8 +88,9 @@ void Canvas::toPPM(std::string path) {
         currentString = "";
         }
         output.close();
+        return true;
     } else {
-        exit(1);
+        return false;
     }
 }
 

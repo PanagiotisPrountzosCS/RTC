@@ -13,7 +13,7 @@ public:
 
     void writePixel(uint64_t i, uint64_t j, const Color& c);
 
-    void toPPM(std::string path);
+    bool toPPM(std::string path);
 
     uint64_t getWidth();
     uint64_t getHeight();

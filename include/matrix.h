@@ -41,4 +41,16 @@ private:
     int cols;
 };
 
+Matrix translation(float x, float y, float z);
+
+Matrix scaling(float x, float y, float z);
+
+Matrix rotateX(float theta);
+
+Matrix rotateY(float theta);
+
+Matrix rotateZ(float theta);
+
+Matrix shearing(float xy, float xz, float yx, float yz, float zx, float zy);
+
 }  // namespace RTC

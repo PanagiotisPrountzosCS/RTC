@@ -54,8 +54,15 @@ float Tuple::operator*(const Tuple& rhs) const {
     return result;
 }
 
+std::ostream& operator<<(std::ostream& os, const Tuple& rhs) {
+    os << "(" << rhs.x << ", " << rhs.y << ", " << rhs.z << ", " << rhs.w
+       << ")\n";
+    return os;
+}
+
 bool Tuple::operator==(const Tuple& rhs) const {
-    if (roughlyEquals(x, rhs.x) && roughlyEquals(y, rhs.y) && roughlyEquals(z, rhs.z) && roughlyEquals(w, rhs.w)) {
+    if (roughlyEquals(x, rhs.x) && roughlyEquals(y, rhs.y) &&
+        roughlyEquals(z, rhs.z) && roughlyEquals(w, rhs.w)) {
         return true;
     }
     return false;
@@ -65,6 +72,23 @@ Vector Vector::operator^(const Tuple& rhs) const {
     Vector result(y * rhs.z - z * rhs.y, z * rhs.x - x * rhs.z,
                   x * rhs.y - y * rhs.x);
 
+    return result;
+}
+
+Point Point::operator+(const Vector& rhs) const {
+    Point result(x + rhs.x, y + rhs.y, z + rhs.z);
+
+    return result;
+}
+
+Point Vector::operator+(const Point& rhs) const {
+    Point result(x + rhs.x, y + rhs.y, z + rhs.z);
+
+    return result;
+}
+
+Vector Vector::operator*(const float& rhs) const {
+    Vector result(x * rhs, y * rhs, z * rhs);
     return result;
 }
 

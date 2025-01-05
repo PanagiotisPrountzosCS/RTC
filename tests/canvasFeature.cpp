@@ -60,8 +60,8 @@ TEST(canvasFeature, makePPM) {
 
 //     for (int i = 0; i < width; i++) {
 //         for (int j = 0; j < height; j++) {
-//             auto x = RTC::mapper(0, 3 * 6.28, i, width);
-//             auto y = RTC::mapper(-1.1, 1.1, j, height);
+//             auto x = RTC::indexToReal(0, 3 * 6.28, i, width);
+//             auto y = RTC::indexToReal(-1.1, 1.1, j, height);
 //             if (abs(y - sin(x)) < 0.01) {
 //                 newCanvas.writePixel(i, height - 1 - j, curveColor);
 //             } else {
