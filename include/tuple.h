@@ -10,17 +10,11 @@ public:
 
     Tuple(float a, float b, float c, float d);
 
-    Tuple operator+(const Tuple& rhs) const;
-    Tuple operator-(const Tuple& rhs) const;
-    Tuple operator-() const;
-    Tuple operator*(const float& scalar) const;
-    Tuple operator/(const float& scalar) const;
-    float operator*(const Tuple& rhs) const;
     friend std::ostream& operator<<(std::ostream& os, const Tuple& rhs);
 
     bool operator==(const Tuple& rhs) const;
 
-    float magnitude();
+    float magnitude() const;
 
     void normalize();
 
@@ -36,16 +30,34 @@ class Point : public Tuple {
 public:
     Point(float a, float b, float c);
     Point();
-    Point operator+(const Vector& rhs) const;
 };
 
 class Vector : public Tuple {
 public:
     Vector(float a, float b, float c);
     Vector();
-    Vector operator^(const Tuple& rhs) const;
-    Point operator+(const Point& rhs) const;
-    Vector operator*(const float& rhs) const;
 };
 
+Tuple operator+(const Tuple& lhs, const Tuple& rhs);
+Tuple operator-(const Tuple& lhs, const Tuple& rhs);
+Tuple operator-(const Tuple& rhs);
+Tuple operator*(const float& scalar, const Tuple& rhs);
+Tuple operator*(const Tuple& lhs, const float& scalar);
+Tuple operator/(const Tuple& lhs, const float& scalar);
+
+Point operator+(const Point& lhs, const Vector& rhs);
+Point operator+(const Vector& lhs, const Point& rhs);
+Point operator-(const Point& lhs, const Vector& rhs);
+Point operator-(const Point& rhs);
+
+Vector operator+(const Vector& lhs, const Vector& rhs);
+Vector operator-(const Vector& lhs, const Vector& rhs);
+Vector operator-(const Point& lhs, const Point& rhs);
+Vector operator-(const Vector& rhs);
+Vector operator*(const Vector& lhs, const float& rhs);
+Vector operator*(const float& lhs, const Vector& rhs);
+Vector operator/(const Vector& lhs, const float& rhs);
+Vector operator^(const Vector& lhs, const Vector& rhs);
+
+float operator*(const Vector& lhs, const Vector& rhs);
 }  // namespace RTC

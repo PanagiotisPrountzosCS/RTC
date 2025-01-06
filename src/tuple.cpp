@@ -19,41 +19,6 @@ Tuple::Tuple(float a, float b, float c, float d) {
     w = d;
 }
 
-Tuple Tuple::operator+(const Tuple& rhs) const {
-    Tuple result(x + rhs.x, y + rhs.y, z + rhs.z, w + rhs.w);
-    return result;
-}
-
-Tuple Tuple::operator-(const Tuple& rhs) const {
-    Tuple result(x - rhs.x, y - rhs.y, z - rhs.z, w - rhs.w);
-    return result;
-}
-
-Tuple Tuple::operator-() const {
-    Tuple result(-x, -y, -z, -w);
-    return result;
-}
-
-Tuple Tuple::operator*(const float& scalar) const {
-    Tuple result(x * scalar, y * scalar, z * scalar, w * scalar);
-    return result;
-}
-
-Tuple Tuple::operator/(const float& scalar) const {
-    if (scalar == 0) {
-        printf("Division by 0, terminating...\n");
-        exit(1);
-    }
-    Tuple result(x / scalar, y / scalar, z / scalar, w / scalar);
-    return result;
-}
-
-float Tuple::operator*(const Tuple& rhs) const {
-    float result = x * rhs.x + y * rhs.y + z * rhs.z + w * rhs.w;
-
-    return result;
-}
-
 std::ostream& operator<<(std::ostream& os, const Tuple& rhs) {
     os << "(" << rhs.x << ", " << rhs.y << ", " << rhs.z << ", " << rhs.w
        << ")\n";
@@ -68,31 +33,7 @@ bool Tuple::operator==(const Tuple& rhs) const {
     return false;
 }
 
-Vector Vector::operator^(const Tuple& rhs) const {
-    Vector result(y * rhs.z - z * rhs.y, z * rhs.x - x * rhs.z,
-                  x * rhs.y - y * rhs.x);
-
-    return result;
-}
-
-Point Point::operator+(const Vector& rhs) const {
-    Point result(x + rhs.x, y + rhs.y, z + rhs.z);
-
-    return result;
-}
-
-Point Vector::operator+(const Point& rhs) const {
-    Point result(x + rhs.x, y + rhs.y, z + rhs.z);
-
-    return result;
-}
-
-Vector Vector::operator*(const float& rhs) const {
-    Vector result(x * rhs, y * rhs, z * rhs);
-    return result;
-}
-
-float Tuple::magnitude() { return sqrt(x * x + y * y + z * z + w * w); }
+float Tuple::magnitude() const { return sqrt(x * x + y * y + z * z + w * w); }
 
 void Tuple::normalize() {
     float mag = magnitude();
@@ -123,5 +64,104 @@ Vector::Vector(float a, float b, float c) {
 }
 
 Vector::Vector() { w = 0; }
+
+Tuple operator+(const Tuple& lhs, const Tuple& rhs) {
+    Tuple result(lhs.x + rhs.x, lhs.y + rhs.y, lhs.z + rhs.z, lhs.w + rhs.w);
+    return result;
+}
+
+Tuple operator-(const Tuple& lhs, const Tuple& rhs) {
+    Tuple result(lhs.x - rhs.x, lhs.y - rhs.y, lhs.z - rhs.z, lhs.w - rhs.w);
+    return result;
+}
+
+Tuple operator-(const Tuple& rhs) {
+    Tuple result(-rhs.x, -rhs.y, -rhs.z, -rhs.w);
+    return result;
+}
+
+Tuple operator*(const float& scalar, const Tuple& rhs) {
+    Tuple result(scalar * rhs.x, scalar * rhs.y, scalar * rhs.z,
+                 scalar * rhs.w);
+    return result;
+}
+
+Tuple operator*(const Tuple& lhs, const float& scalar) {
+    Tuple result(scalar * lhs.x, scalar * lhs.y, scalar * lhs.z,
+                 scalar * lhs.w);
+    return result;
+}
+
+Tuple operator/(const Tuple& lhs, const float& scalar) {
+    Tuple result(lhs.x / scalar, lhs.y / scalar, lhs.z / scalar,
+                 lhs.w / scalar);
+    return result;
+}
+
+Point operator+(const Point& lhs, const Vector& rhs) {
+    Point result(lhs.x + rhs.x, lhs.y + rhs.y, lhs.z + rhs.z);
+    return result;
+}
+
+Point operator+(const Vector& lhs, const Point& rhs) {
+    Point result(lhs.x + rhs.x, lhs.y + rhs.y, lhs.z + rhs.z);
+    return result;
+}
+
+Point operator-(const Point& lhs, const Vector& rhs) {
+    Point result(lhs.x - rhs.x, lhs.y - rhs.y, lhs.z - rhs.z);
+    return result;
+}
+
+Point operator-(const Point& rhs) {
+    Point result(-rhs.x, -rhs.y, -rhs.z);
+    return result;
+}
+
+Vector operator+(const Vector& lhs, const Vector& rhs) {
+    Vector result(lhs.x + rhs.x, lhs.y + rhs.y, lhs.z + rhs.z);
+    return result;
+}
+
+Vector operator-(const Vector& lhs, const Vector& rhs) {
+    Vector result(lhs.x - rhs.x, lhs.y - rhs.y, lhs.z - rhs.z);
+    return result;
+}
+
+Vector operator-(const Point& lhs, const Point& rhs) {
+    Vector result(lhs.x - rhs.x, lhs.y - rhs.y, lhs.z - rhs.z);
+    return result;
+}
+
+Vector operator-(const Vector& rhs) {
+    Vector result(-rhs.x, -rhs.y, -rhs.z);
+    return result;
+}
+
+Vector operator*(const Vector& lhs, const float& rhs) {
+    Vector result(lhs.x * rhs, lhs.y * rhs, lhs.z * rhs);
+    return result;
+}
+
+Vector operator*(const float& lhs, const Vector& rhs) {
+    Vector result(rhs.x * lhs, rhs.y * lhs, rhs.z * lhs);
+    return result;
+}
+
+Vector operator/(const Vector& lhs, const float& rhs) {
+    Vector result(lhs.x / rhs, lhs.y / rhs, lhs.z / rhs);
+    return result;
+}
+
+Vector operator^(const Vector& lhs, const Vector& rhs) {
+    Vector result(lhs.y * rhs.z - lhs.z * rhs.y, lhs.z * rhs.x - lhs.x * rhs.z,
+                  lhs.x * rhs.y - lhs.y * rhs.x);
+    return result;
+}
+
+float operator*(const Vector& lhs, const Vector& rhs) {
+    float result(rhs.x * lhs.x + rhs.y * lhs.y + rhs.z * lhs.z);
+    return result;
+}
 
 }  // namespace RTC
